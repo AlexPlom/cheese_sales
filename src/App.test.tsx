@@ -6,6 +6,12 @@ import { App } from './App'
 afterEach(cleanup)
 
 describe('CURD storefront', () => {
+  it('presents the static hero artwork through the storefront', () => {
+    render(<App />)
+
+    expect(screen.getByRole('img', { name: /Графична нео-бруталистична илюстрация/ })).toHaveAttribute('src', '/generated/curd-funky-cheese-hero.png')
+  })
+
   it('adds products and waives delivery at EUR 25', async () => {
     const user = userEvent.setup()
     render(<App />)
@@ -42,5 +48,24 @@ describe('CURD storefront', () => {
 
     expect(screen.getByRole('heading', { name: 'Това беше демо.' })).toBeInTheDocument()
     expect(screen.getByText('Нищо не е изпратено и няма плащане.')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'ОБРАТНО В МАГАЗИНА' }))
+    expect(screen.getByRole('button', { name: /Кошница, 0 артикула, общо €0/ })).toBeDisabled()
+  })
+
+  it('shows Demo Checkout validation failures through the storefront', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: 'Добави Гауда' }))
+    await user.click(screen.getByRole('button', { name: /Кошница, 1 артикул/ }))
+    await user.click(screen.getByRole('button', { name: /Към демо поръчка/i }))
+    await user.type(screen.getByLabelText('Име'), 'И')
+    await user.type(screen.getByLabelText('Телефон'), '123')
+    await user.click(screen.getByRole('button', { name: /Към проверка/i }))
+
+    expect(screen.getByText('Името трябва да е поне 2 знака.')).toBeInTheDocument()
+    expect(screen.getByText('Въведи валиден български мобилен номер.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'КЪДЕ?' })).toBeInTheDocument()
   })
 })

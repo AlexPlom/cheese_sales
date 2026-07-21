@@ -90,7 +90,7 @@ export function App() {
             <a className="primary-link" href="#cheese">ИЗБЕРИ СИРЕНЕ <span>↘</span></a>
           </div>
           <div className="cheese-stage">
-            <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=1600&q=90" alt="Подбрани сирена върху традиционна дървена дъска" />
+            <img src="/generated/curd-neo-brutalist-hero.png" alt="Подбрани сирена върху традиционна дървена дъска" />
             <div className="image-stamp" aria-hidden="true">CURD.<br />SELECTED<br />CHEESE</div>
             <span className="stage-label">ИСТИНСКО СИРЕНЕ<br />ЯСНА СЕЛЕКЦИЯ</span>
           </div>

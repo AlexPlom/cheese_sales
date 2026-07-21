@@ -23,7 +23,7 @@ There is no minimum order. Delivery costs EUR 2 below a EUR 25 subtotal and is f
 
 ## Presentation
 
-Use Bulgarian copy and euro prices. The visual language is clean editorial neo-brutalism: oversized condensed type, mono utility text, hard borders, warm paper, charcoal, restrained acid-lime and orange accents, and traditional cheese photography. Motion is limited to subtle ticker and hover transitions and respects `prefers-reduced-motion`.
+Use Bulgarian copy and euro prices. The visual language is clean editorial neo-brutalism: oversized condensed type, mono utility text, hard borders, warm paper, charcoal, restrained acid-lime and orange accents, and custom traditional cheese photography. Motion is limited to subtle ticker and hover transitions and respects `prefers-reduced-motion`.
 
 ## Safety Boundary
 

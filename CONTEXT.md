@@ -16,3 +16,13 @@ The shop's selection of common cheese varieties: White Brined Cheese, Kashkaval 
 
 A customer's current selection of Cheese Products, including chosen quantities and the resulting subtotal, delivery charge, and total.
 _Avoid_: Cart
+
+## Demo Checkout
+
+A simulated progression from reviewing a Basket through entering delivery details, final review, and completion; it never creates or submits an Order.
+_Avoid_: Order, Storefront Journey
+
+## Delivery Details
+
+The recipient name, Bulgarian phone number, delivery address, delivery window, and optional note entered during Demo Checkout.
+_Avoid_: Customer

@@ -1,5 +1,4 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { ShaderField } from './ShaderField'
 
 type Product = {
   id: 'white' | 'kashkaval' | 'gouda' | 'cheddar'
@@ -7,19 +6,19 @@ type Product = {
   price: number
   eyebrow: string
   description: string
+  image: string
 }
 
 const products: Product[] = [
-  { id: 'white', name: 'Бяло саламурено', price: 6, eyebrow: 'БЯЛО СИРЕНЕ / 400 Г', description: 'Класическа категория за салати, печива и ежедневната трапеза.' },
-  { id: 'kashkaval', name: 'Кашкавал Витоша', price: 8, eyebrow: 'КАШКАВАЛ / 350 Г', description: 'Популярна полутвърда категория за сандвичи, запичане и директно сервиране.' },
-  { id: 'gouda', name: 'Гауда', price: 7, eyebrow: 'ГАУДА / 300 Г', description: 'Разпознаваем избор за плато, сандвичи и топли ястия.' },
-  { id: 'cheddar', name: 'Зрял чедър', price: 9, eyebrow: 'ЧЕДЪР / 250 Г', description: 'Позната категория за бургери, сосове и плато със сирена.' },
+  { id: 'white', name: 'Бяло саламурено', price: 6, eyebrow: 'БЯЛО СИРЕНЕ / 400 Г', description: 'Класическа категория за салати, печива и ежедневната трапеза.', image: 'https://images.unsplash.com/photo-1559561853-08451507cbe7?auto=format&fit=crop&w=900&q=85' },
+  { id: 'kashkaval', name: 'Кашкавал Витоша', price: 8, eyebrow: 'КАШКАВАЛ / 350 Г', description: 'Популярна полутвърда категория за сандвичи, запичане и директно сервиране.', image: 'https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=900&q=85' },
+  { id: 'gouda', name: 'Гауда', price: 7, eyebrow: 'ГАУДА / 300 Г', description: 'Разпознаваем избор за плато, сандвичи и топли ястия.', image: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=900&q=85' },
+  { id: 'cheddar', name: 'Зрял чедър', price: 9, eyebrow: 'ЧЕДЪР / 250 Г', description: 'Позната категория за бургери, сосове и плато със сирена.', image: 'https://images.unsplash.com/photo-1589881133595-a3c085cb731d?auto=format&fit=crop&w=900&q=85' },
 ]
 
 const money = (value: number) => `€${value}`
 
 export function App() {
-  const heroRef = useRef<HTMLElement>(null)
   const [quantities, setQuantities] = useState<Record<Product['id'], number>>({ white: 0, kashkaval: 0, gouda: 0, cheddar: 0 })
   const [cartOpen, setCartOpen] = useState(false)
   const [checkout, setCheckout] = useState<'cart' | 'details' | 'review'>('cart')
@@ -49,31 +48,6 @@ export function App() {
       document.removeEventListener('keydown', closeOnEscape)
     }
   }, [cartOpen])
-
-  useEffect(() => {
-    const hero = heroRef.current
-    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    let frame = 0
-    const update = (x: number, y: number) => {
-      cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(() => {
-        hero.style.setProperty('--px', `${x * 30}px`)
-        hero.style.setProperty('--py', `${y * 24}px`)
-        hero.style.setProperty('--px-inverse', `${x * -30}px`)
-        hero.style.setProperty('--py-inverse', `${y * -24}px`)
-        hero.style.setProperty('--tilt', `${x * 9}deg`)
-      })
-    }
-    const move = (event: PointerEvent) => update(event.clientX / window.innerWidth - 0.5, event.clientY / window.innerHeight - 0.5)
-    const scroll = () => hero.style.setProperty('--scroll-shift', `${Math.min(window.scrollY, hero.offsetHeight) * 0.1}px`)
-    window.addEventListener('pointermove', move, { passive: true })
-    window.addEventListener('scroll', scroll, { passive: true })
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('pointermove', move)
-      window.removeEventListener('scroll', scroll)
-    }
-  }, [])
 
   const submitOrder = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -109,22 +83,15 @@ export function App() {
       </header>
 
       <main>
-        <section className="hero" id="top" ref={heroRef}>
+        <section className="hero" id="top">
           <div className="hero-copy">
             <p className="kicker">ПОЗНАТИ ВИДОВЕ / ЯСНИ ЦЕНИ / ДЕМО МАГАЗИН</p>
             <h1>СИРЕНЕ<br /><i>БЕЗ</i><br />ПОЗА.</h1>
             <a className="primary-link" href="#cheese">ИЗБЕРИ СИРЕНЕ <span>↘</span></a>
           </div>
-          <div className="cheese-stage" aria-hidden="true">
-            <ShaderField />
-            <div className="portal portal-one" />
-            <div className="portal portal-two" />
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="cheese-block">
-              <div className="hole h1" /><div className="hole h2" /><div className="hole h3" />
-              <strong>CURD</strong>
-            </div>
+          <div className="cheese-stage">
+            <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=1600&q=90" alt="Подбрани сирена върху традиционна дървена дъска" />
+            <div className="image-stamp" aria-hidden="true">CURD.<br />SELECTED<br />CHEESE</div>
             <span className="stage-label">ИСТИНСКО СИРЕНЕ<br />ЯСНА СЕЛЕКЦИЯ</span>
           </div>
           <div className="hero-ticker" aria-hidden="true">
@@ -146,7 +113,8 @@ export function App() {
                 <article className={`product-card ${product.id}`} key={product.id}>
                   <div className="product-visual">
                     <span>{product.eyebrow}</span>
-                    <div className="product-form" aria-hidden="true"><b>{product.price.toString().padStart(2, '0')}</b></div>
+                    <img src={product.image} alt={`${product.name}, примерна продуктова фотография`} loading="lazy" />
+                    <b className="image-number" aria-hidden="true">{product.price.toString().padStart(2, '0')}</b>
                   </div>
                   <div className="product-info">
                     <p>0{index + 1} / ПОДБРАНО СИРЕНЕ</p>

@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
+import { ShaderField } from './ShaderField'
 
 type Product = {
   id: 'regular' | 'crystal'
@@ -28,6 +29,7 @@ const products: Product[] = [
 const money = (value: number) => `€${value}`
 
 export function App() {
+  const heroRef = useRef<HTMLElement>(null)
   const [quantities, setQuantities] = useState<Record<Product['id'], number>>({ regular: 0, crystal: 0 })
   const [cartOpen, setCartOpen] = useState(false)
   const [checkout, setCheckout] = useState<'cart' | 'details' | 'review'>('cart')
@@ -57,6 +59,31 @@ export function App() {
       document.removeEventListener('keydown', closeOnEscape)
     }
   }, [cartOpen])
+
+  useEffect(() => {
+    const hero = heroRef.current
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let frame = 0
+    const update = (x: number, y: number) => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        hero.style.setProperty('--px', `${x * 30}px`)
+        hero.style.setProperty('--py', `${y * 24}px`)
+        hero.style.setProperty('--px-inverse', `${x * -30}px`)
+        hero.style.setProperty('--py-inverse', `${y * -24}px`)
+        hero.style.setProperty('--tilt', `${x * 9}deg`)
+      })
+    }
+    const move = (event: PointerEvent) => update(event.clientX / window.innerWidth - 0.5, event.clientY / window.innerHeight - 0.5)
+    const scroll = () => hero.style.setProperty('--scroll-shift', `${Math.min(window.scrollY, hero.offsetHeight) * 0.1}px`)
+    window.addEventListener('pointermove', move, { passive: true })
+    window.addEventListener('scroll', scroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('scroll', scroll)
+    }
+  }, [])
 
   const submitOrder = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -92,13 +119,16 @@ export function App() {
       </header>
 
       <main>
-        <section className="hero" id="top">
+        <section className="hero" id="top" ref={heroRef}>
           <div className="hero-copy">
             <p className="kicker">СЛИВЕН / УТРЕ / ДО ВРАТАТА</p>
             <h1>СИРЕНЕ<br /><i>БЕЗ</i><br />ПОЗА.</h1>
             <a className="primary-link" href="#cheese">ИЗБЕРИ СИРЕНЕ <span>↘</span></a>
           </div>
           <div className="cheese-stage" aria-hidden="true">
+            <ShaderField />
+            <div className="portal portal-one" />
+            <div className="portal portal-two" />
             <div className="orbit orbit-one" />
             <div className="orbit orbit-two" />
             <div className="cheese-block">

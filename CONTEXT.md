@@ -4,10 +4,10 @@
 
 A budget-conscious adult who regularly buys affordable cheese for everyday meals.
 
-## Regular Cheese
+## Cheese Product
 
-The standard product, sold as one predefined unit for EUR 5.
+A recognizable variety of cheese sold in a clearly identified, predefined package with its price and key characteristics shown.
 
-## Crystal Cheese
+## Catalog
 
-The premium product, sold as one predefined unit for EUR 10.
+The shop's selection of common cheese varieties: White Brined Cheese, Kashkaval Vitosha, Gouda, and Mature Cheddar.

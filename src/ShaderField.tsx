@@ -23,7 +23,7 @@ const fragmentShader = `
     float warp = sin(uv.y * 4.2 - t * 2.0) * 0.18 + cos(uv.x * 3.1 + t) * 0.12;
     float ribbons = band(sin((uv.x + warp) * 5.0 + sin(uv.y * 2.0 + t)), 0.16);
     float rings = band(sin(length(uv - mouse * 0.15) * 10.0 - t * 3.0), 0.13);
-    float crystal = band(sin((uv.x - uv.y) * 8.0 + t * 1.7), 0.1);
+    float prism = band(sin((uv.x - uv.y) * 8.0 + t * 1.7), 0.1);
 
     vec3 acid = vec3(0.76, 1.0, 0.08);
     vec3 orange = vec3(1.0, 0.23, 0.08);
@@ -32,7 +32,7 @@ const fragmentShader = `
     vec3 color = mix(violet, orange, smoothstep(-0.8, 0.8, uv.y + warp));
     color = mix(color, acid, ribbons * 0.88);
     color = mix(color, cyan, rings * 0.72);
-    color += crystal * vec3(0.35, 0.22, 0.5);
+    color += prism * vec3(0.35, 0.22, 0.5);
     color *= 0.82 + 0.18 * sin(uv.x * 12.0 + uv.y * 7.0 + t);
 
     gl_FragColor = vec4(color, 1.0);

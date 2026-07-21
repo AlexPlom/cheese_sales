@@ -47,8 +47,14 @@ a { color: inherit; }
 .product-form { width: 65%; aspect-ratio: 1; display: grid; place-items: center; background: #ffe26c; border: 3px solid #171713; transform: rotate(9deg); box-shadow: 18px 18px 0 #ee5d2f; transition: transform .4s; }
 .product-card:hover .product-form { transform: rotate(-2deg) scale(1.04); }
 .product-form b { font: 6rem 'Archivo Black'; opacity: .18; }
-.crystal .product-visual { background: conic-gradient(from 210deg, #98ffd8, #a995ff, #ff81a8, #f5ff7a, #98ffd8); }
-.crystal .product-form { clip-path: polygon(50% 0, 100% 32%, 83% 100%, 14% 89%, 0 28%); background: linear-gradient(145deg, rgba(255,255,255,.8), rgba(111,92,255,.7)); box-shadow: 18px 18px 0 #9effdc; }
+.white .product-visual { background: #ece8dc; }
+.white .product-form { background: #fffdf4; box-shadow: 18px 18px 0 #68a8ff; }
+.kashkaval .product-visual { background: #f5bf31; }
+.kashkaval .product-form { border-radius: 50%; background: #ffd95a; box-shadow: 18px 18px 0 #ee5d2f; }
+.gouda .product-visual { background: #ef6b32; }
+.gouda .product-form { border-radius: 50% 50% 12% 12%; background: #f7c54b; box-shadow: 18px 18px 0 #d2ff36; }
+.cheddar .product-visual { background: conic-gradient(from 210deg, #ffcb39, #f36d26, #ffd95a, #ff8a31); }
+.cheddar .product-form { clip-path: polygon(0 20%, 100% 0, 84% 100%, 10% 88%); background: #f29a2e; box-shadow: 18px 18px 0 #9effdc; }
 .product-info { padding: 2rem; display: flex; flex-direction: column; }
 .product-info > p:first-child { font-size: .6rem; color: #aaa89e; }
 .availability { margin-top: .4rem; color: #d2ff36; font-size: .6rem; }

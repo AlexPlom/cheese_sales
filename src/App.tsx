@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { ShaderField } from './ShaderField'
 
 type Product = {
-  id: 'regular' | 'crystal'
+  id: 'white' | 'kashkaval' | 'gouda' | 'cheddar'
   name: string
   price: number
   eyebrow: string
@@ -10,36 +10,26 @@ type Product = {
 }
 
 const products: Product[] = [
-  {
-    id: 'regular',
-    name: 'Обикновено сирене',
-    price: 5,
-    eyebrow: 'ВСЕКИ ДЕН',
-    description: 'Ясният избор за ежедневната трапеза. Една фиксирана разфасовка.',
-  },
-  {
-    id: 'crystal',
-    name: 'Crystal сирене',
-    price: 10,
-    eyebrow: 'ДРУГИЯТ РИТЪМ',
-    description: 'Визуално смелата версия на PIKO. Една фиксирана разфасовка.',
-  },
+  { id: 'white', name: 'Бяло саламурено', price: 6, eyebrow: 'БЯЛО СИРЕНЕ / 400 Г', description: 'Класическа категория за салати, печива и ежедневната трапеза.' },
+  { id: 'kashkaval', name: 'Кашкавал Витоша', price: 8, eyebrow: 'КАШКАВАЛ / 350 Г', description: 'Популярна полутвърда категория за сандвичи, запичане и директно сервиране.' },
+  { id: 'gouda', name: 'Гауда', price: 7, eyebrow: 'ГАУДА / 300 Г', description: 'Разпознаваем избор за плато, сандвичи и топли ястия.' },
+  { id: 'cheddar', name: 'Зрял чедър', price: 9, eyebrow: 'ЧЕДЪР / 250 Г', description: 'Позната категория за бургери, сосове и плато със сирена.' },
 ]
 
 const money = (value: number) => `€${value}`
 
 export function App() {
   const heroRef = useRef<HTMLElement>(null)
-  const [quantities, setQuantities] = useState<Record<Product['id'], number>>({ regular: 0, crystal: 0 })
+  const [quantities, setQuantities] = useState<Record<Product['id'], number>>({ white: 0, kashkaval: 0, gouda: 0, cheddar: 0 })
   const [cartOpen, setCartOpen] = useState(false)
   const [checkout, setCheckout] = useState<'cart' | 'details' | 'review'>('cart')
   const [complete, setComplete] = useState(false)
   const [customer, setCustomer] = useState({ name: '', phone: '', address: '', window: '', note: '' })
   const closeButton = useRef<HTMLButtonElement>(null)
 
-  const count = quantities.regular + quantities.crystal
+  const count = products.reduce((sum, product) => sum + quantities[product.id], 0)
   const subtotal = products.reduce((sum, product) => sum + quantities[product.id] * product.price, 0)
-  const delivery = subtotal > 0 && subtotal < 20 ? 2 : 0
+  const delivery = subtotal > 0 && subtotal < 25 ? 2 : 0
   const total = subtotal + delivery
   const countLabel = count === 1 ? 'артикул' : 'артикула'
 
@@ -92,7 +82,7 @@ export function App() {
   }
 
   const reset = () => {
-    setQuantities({ regular: 0, crystal: 0 })
+    setQuantities({ white: 0, kashkaval: 0, gouda: 0, cheddar: 0 })
     setCartOpen(false)
     setCheckout('cart')
     setComplete(false)
@@ -103,7 +93,7 @@ export function App() {
     <div className="site-shell">
       <div className="grain" aria-hidden="true" />
       <header className="nav">
-        <a className="logo" href="#top" aria-label="PIKO начало">PIKO<span>●</span></a>
+        <a className="logo" href="#top" aria-label="CURD начало">CURD<span>●</span></a>
         <nav aria-label="Основна навигация">
           <a href="#cheese">Сирената</a>
           <a href="#delivery">Доставка</a>
@@ -121,7 +111,7 @@ export function App() {
       <main>
         <section className="hero" id="top" ref={heroRef}>
           <div className="hero-copy">
-            <p className="kicker">СЛИВЕН / УТРЕ / ДО ВРАТАТА</p>
+            <p className="kicker">ПОЗНАТИ ВИДОВЕ / ЯСНИ ЦЕНИ / ДЕМО МАГАЗИН</p>
             <h1>СИРЕНЕ<br /><i>БЕЗ</i><br />ПОЗА.</h1>
             <a className="primary-link" href="#cheese">ИЗБЕРИ СИРЕНЕ <span>↘</span></a>
           </div>
@@ -133,21 +123,21 @@ export function App() {
             <div className="orbit orbit-two" />
             <div className="cheese-block">
               <div className="hole h1" /><div className="hole h2" /><div className="hole h3" />
-              <strong>PIKO</strong>
+              <strong>CURD</strong>
             </div>
-            <span className="stage-label">ДВЕ СИРЕНА<br />ЕДИН ЯСЕН ИЗБОР</span>
+            <span className="stage-label">ИСТИНСКО СИРЕНЕ<br />ЯСНА СЕЛЕКЦИЯ</span>
           </div>
           <div className="hero-ticker" aria-hidden="true">
-            <span>СЛИВЕНСКИ РИТЪМ ✦ ЧЕСТНА ЦЕНА ✦ ДОСТАВКА УТРЕ ✦ </span>
-            <span>СЛИВЕНСКИ РИТЪМ ✦ ЧЕСТНА ЦЕНА ✦ ДОСТАВКА УТРЕ ✦ </span>
+            <span>БЯЛО СИРЕНЕ ✦ КАШКАВАЛ ✦ ГАУДА ✦ ЧЕДЪР ✦ </span>
+            <span>БЯЛО СИРЕНЕ ✦ КАШКАВАЛ ✦ ГАУДА ✦ ЧЕДЪР ✦ </span>
           </div>
         </section>
 
         <section className="products" id="cheese">
           <div className="section-heading">
             <span>01 / ИЗБОРЪТ</span>
-            <h2>ДВА<br />ХАРАКТЕРА.</h2>
-            <p>Без измислени обещания.<br />Само име, цена и избор.</p>
+            <h2>ЧЕТИРИ<br />ХАРАКТЕРА.</h2>
+            <p>Познати сирена.<br />Ясни разфасовки и цени.</p>
           </div>
           <div className="product-grid">
             {products.map((product, index) => {
@@ -156,10 +146,10 @@ export function App() {
                 <article className={`product-card ${product.id}`} key={product.id}>
                   <div className="product-visual">
                     <span>{product.eyebrow}</span>
-                    <div className="product-form" aria-hidden="true"><b>{index === 0 ? '05' : '10'}</b></div>
+                    <div className="product-form" aria-hidden="true"><b>{product.price.toString().padStart(2, '0')}</b></div>
                   </div>
                   <div className="product-info">
-                    <p>0{index + 1} / ФИКСИРАНА РАЗФАСОВКА</p>
+                    <p>0{index + 1} / ПОДБРАНО СИРЕНЕ</p>
                     <span className="availability">● НАЛИЧНО В ДЕМОТО</span>
                     <h3>{product.name}</h3>
                     <div className="price">{money(product.price)}</div>
@@ -185,15 +175,15 @@ export function App() {
         <section className="delivery" id="delivery">
           <div className="delivery-title"><span>02 / ДОСТАВКАТА</span><h2>УТРЕ Е<br />ДОСТАТЪЧНО<br />СКОРО.</h2></div>
           <div className="delivery-grid">
-            <div><b>01</b><h3>Само Сливен</h3><p>Доставяме в рамките на града.</p></div>
-            <div><b>02</b><h3>Избираш час</h3><p>Удобен прозорец за следващия ден.</p></div>
-            <div><b>03</b><h3>€2 доставка</h3><p>Без минимум. Безплатно при поръчка от €20.</p></div>
+            <div><b>01</b><h3>Демо опаковка</h3><p>Показваме как би изглеждала защитена пратка.</p></div>
+            <div><b>02</b><h3>Примерна доставка</h3><p>Часовите прозорци са част от демонстрацията.</p></div>
+            <div><b>03</b><h3>€2 доставка</h3><p>Без минимум. Безплатно при поръчка от €25.</p></div>
           </div>
-          <p className="demo-note">PIKO В МОМЕНТА Е ДИЗАЙН ПРОТОТИП. НЕ СЕ ПРИЕМАТ РЕАЛНИ ПОРЪЧКИ.</p>
+          <p className="demo-note">CURD. В МОМЕНТА Е ДИЗАЙН ПРОТОТИП. НЕ СЕ ПРИЕМАТ РЕАЛНИ ПОРЪЧКИ.</p>
         </section>
       </main>
 
-      <footer><a className="logo" href="#top">PIKO<span>●</span></a><p>ЗА ХОРАТА В СЛИВЕН<br />ПРОТОТИП / 2026</p><a href="#top">НАГОРЕ ↑</a></footer>
+      <footer><a className="logo" href="#top">CURD<span>●</span></a><p>СЕЛЕКЦИЯ ОТ ПОЗНАТИ СИРЕНА<br />ПРОТОТИП / 2026</p><a href="#top">НАГОРЕ ↑</a></footer>
 
       {cartOpen && <div className="scrim" onClick={() => setCartOpen(false)} aria-hidden="true" />}
       {cartOpen && <aside className="cart-panel open" role="dialog" aria-modal="true" aria-label="Кошница">
@@ -207,7 +197,7 @@ export function App() {
             <div className="success-mark">✓</div>
             <h3>Това беше демо.</h3>
             <p>Нищо не е изпратено и няма плащане.</p>
-            <strong>PIKO-DEMO-2607</strong>
+            <strong>CURD-DEMO-2607</strong>
             <button className="checkout-button" onClick={reset}>ОБРАТНО В МАГАЗИНА</button>
           </div>
         ) : checkout === 'review' ? (
@@ -223,7 +213,7 @@ export function App() {
             <p className="prototype-warning">ДЕМО РЕЖИМ — ДАННИТЕ НЕ СЕ ИЗПРАЩАТ.</p>
             <label>Име<input name="name" required minLength={2} autoComplete="name" value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} /></label>
             <label>Телефон<input name="phone" type="tel" required pattern="(?:\+359|0)8[7-9][0-9 ]{7,9}" placeholder="0888 123 456" value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} /></label>
-            <label>Адрес в Сливен<input name="address" required minLength={5} autoComplete="street-address" value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} /></label>
+            <label>Адрес за доставка<input name="address" required minLength={5} autoComplete="street-address" value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} /></label>
             <label>Час за доставка<select name="window" required value={customer.window} onChange={(e) => setCustomer({ ...customer, window: e.target.value })}><option value="" disabled>Избери прозорец</option><option>10:00–13:00</option><option>14:00–17:00</option><option>18:00–20:00</option></select></label>
             <label>Бележка (по желание)<textarea name="note" rows={2} value={customer.note} onChange={(e) => setCustomer({ ...customer, note: e.target.value })} /></label>
             <div className="form-actions"><button type="button" onClick={() => setCheckout('cart')}>← НАЗАД</button><button type="submit">КЪМ ПРОВЕРКА →</button></div>
@@ -238,7 +228,7 @@ export function App() {
                 </div>
               ))}
             </div>
-            <div className="free-delivery"><span>{subtotal >= 20 ? 'ДОСТАВКАТА Е БЕЗПЛАТНА' : `ОЩЕ ${money(20 - subtotal)} ДО БЕЗПЛАТНА ДОСТАВКА`}</span><div><i style={{ width: `${Math.min(100, subtotal * 5)}%` }} /></div></div>
+            <div className="free-delivery"><span>{subtotal >= 25 ? 'ДОСТАВКАТА Е БЕЗПЛАТНА' : `ОЩЕ ${money(25 - subtotal)} ДО БЕЗПЛАТНА ДОСТАВКА`}</span><div><i style={{ width: `${Math.min(100, subtotal * 4)}%` }} /></div></div>
             <div className="totals"><p><span>Продукти</span><b>{money(subtotal)}</b></p><p><span>Доставка</span><b>{delivery === 0 ? '€0' : money(delivery)}</b></p><p className="grand"><span>Общо</span><b>{money(total)}</b></p></div>
             <button className="checkout-button" disabled={count === 0} onClick={() => setCheckout('details')}>КЪМ ДЕМО ПОРЪЧКА <span>→</span></button>
           </>

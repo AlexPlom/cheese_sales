@@ -1,19 +1,19 @@
-# Chart the PIKO Storefront Experience
+# Chart the CURD. Storefront Experience
 
 Label: `wayfinder:map`
 
 ## Destination
 
-An implementation-ready Bulgarian design specification and interactive prototype for PIKO, presenting Regular Cheese and Crystal Cheese through a responsive neo-brutalist storefront with progressive shaders and motion, a demo cart and checkout, and no real order submission.
+An implementation-ready Bulgarian design specification and interactive prototype for CURD., presenting familiar cheese varieties through a responsive neo-brutalist storefront with progressive shaders and motion, a demo cart and checkout, and no real order submission.
 
 ## Notes
 
 - Consult `/grilling`, `/domain-modeling`, and `/prototype` while resolving relevant tickets.
 - Target Customer: budget-conscious adults buying affordable cheese for everyday meals.
-- Initial market: Sliven city; Bulgarian language; euro pricing.
-- Regular Cheese costs EUR 5 and Crystal Cheese costs EUR 10, each as a predefined unit.
+- Bulgarian language and euro pricing.
+- The catalog contains White Brined Cheese, Kashkaval Vitosha, Gouda, and Mature Cheddar in predefined packages.
 - The eventual service concept has no minimum order, a EUR 2 delivery fee waived at EUR 20, next-day delivery windows, and seller-managed stock.
-- Visual direction: a slightly neo-brutalist “Sliven night market,” using charcoal, warm cream, amber Regular Cheese accents, crystalline iridescence, and bold condensed typography.
+- Visual direction: psychedelic editorial neo-brutalism using charcoal, warm cream, acid color, WebGL fields, and bold condensed typography.
 - Motion is progressively enhanced, simplifies on low-powered devices, and respects `prefers-reduced-motion`.
 - This map plans and prototypes the experience; it does not launch real commerce.
 
@@ -30,4 +30,4 @@ An implementation-ready Bulgarian design specification and interactive prototype
 
 - Business registration, food-sale compliance, production, storage, and delivery operations.
 - Real payment processing, order submission, customer accounts, and production infrastructure.
-- Delivery beyond Sliven city and localization beyond Bulgarian.
+- Localization beyond Bulgarian.

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "openai-images": {
+      "type": "local",
+      "command": ["node", "tools/openai-image-mcp.mjs"],
+      "enabled": true
+    }
+  }
+}
